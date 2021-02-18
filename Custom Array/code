@@ -1,0 +1,75 @@
+using System;
+ 
+namespace ImplementArrayList
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
+ 
+    public class CustomArrayList<T>
+    {
+        private T[] arr;
+        private static int initialCapacity = 4;
+        private int count;
+ 
+        public int Count
+        {
+            get { return this.count; }
+            private set { this.count = value; }
+        }
+ 
+        public CustomArrayList()
+        {
+            this.arr = new T[initialCapacity];
+            this.count = 0;
+        }
+ 
+        public void Add(T item)
+        {
+            if(Count == arr.Length)
+            {
+                Resize();
+            }
+            arr[Count] = item;
+            Count++;
+        }
+ 
+        public void Insert(int index, T item)
+        {
+            if (Count == arr.Length)
+            {
+                Resize();
+            }
+            for(int i = arr.Length - 1; i > index; i--) //1 2 3 4 5 6 // 
+            {
+                arr[i] = arr[i - 1];
+            }
+        }
+ 
+        public T Remove(int index)
+        {
+            if(index >= Count || index < 0)
+            {
+ 
+            }
+ 
+            T item = this.arr[index];
+ 
+            arr[index] = default(T);
+            Shift(index);
+            Count--;
+        }
+ 
+        private void Resize()
+        {
+            T[] copy = new T[arr.Length * 2];
+            Array.Copy(arr, copy, arr.Length);
+            arr = copy;
+        }
+    }
+}
+ 
